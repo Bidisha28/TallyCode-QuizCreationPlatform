@@ -5,7 +5,7 @@ from authlib.integrations.flask_client import OAuth
 import pymongo
 
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='template')
 app.secret_key = '!secret'
 app.config.from_object('config')
 
@@ -42,8 +42,10 @@ oauth.register(
 #admin side login
 @app.route('/')
 def homepage():
-    user = session.get('user')
-    return f'hey {user}'
+    if 'user' in session:
+        user = session.get('user')
+        return render_template('Quizpage.html')
+    return render_template('login.html')
     # return render_template('home.html', user=user)
 
 #admin side login
@@ -79,7 +81,7 @@ def post_quiz():
 #admin whole quiz page
 @app.route('/quizzes')
 def quizzes():
-    
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)
