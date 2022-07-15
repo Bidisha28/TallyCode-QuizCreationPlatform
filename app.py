@@ -39,35 +39,47 @@ oauth.register(
     }
 )
 
-
+#admin side login
 @app.route('/')
 def homepage():
     user = session.get('user')
     return f'hey {user}'
     # return render_template('home.html', user=user)
 
-
+#admin side login
 @app.route('/login')
 def login():
     redirect_uri = url_for('authorize', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
-
+#admin side login
 @app.route('/authorize')
 def authorize():
     token = oauth.google.authorize_access_token()
     user = token.get('userinfo')
     if user:
         session['user'] = user
-    admin.insert_one({'user_data': user})
+    if admin.find_one({'user_email': user['email']})==None:
+        admin.insert_one({'user_email': user['email'], 'user_name': user['name']})
+    print(admin.find_one({'user_email': user['email']})==None)
     return redirect('/')
 
-
+#admin side login
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect('/')
 
+
+# admin post_quiz page
+@app.route('/post_quiz')
+def post_quiz():
+    pass
+
+#admin whole quiz page
+@app.route('/quizzes')
+def quizzes():
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
