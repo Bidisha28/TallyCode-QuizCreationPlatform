@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Page</title>
+        <meta name="viewport" context="width=device-width,intial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!--<style>
+            
+            
+        </style>-->
+    </head>
+    <body style="background: linear-gradient(to bottom right,#33cc33,#99ffff);">
+        <div class="bottom">
+            <div class="container">
+                <div class="row vh-100 justify-content-center align-items-center">
+                <div class="col-8 col-md-6 col-lg-4 text-center">
+                    <h2 class="h2 my-4" ><b style="color:black;">Please Sign in</b></h2>
+                    <form method=POST action="{{ url_for('login') }}">
+                        <input type="text" class="form-control p-3 rounded-0 rounded-top" id="e" name="user_id"  placeholder="username">
+                        
+                        <input type="password" class="form-control p-3 rounded-0" id="p" name="pass" placeholder="password">
+                        
+                        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                        <p style="color:black;">Don't have an account?<a href="#" style="color:black;" >Sign up</a>
+                        </p>
+                        <hr>
+                        <p style="text-align:center;"><b>OR</b></p>
+
+                    </form>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
