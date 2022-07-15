@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test taker details</title>
+        <meta name="viewport" context="width=device-width,intial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <style>
+            .sidenav {height: 100%;width: 350px;position: fixed;z-index: 1;top: 100;left: 20;background-color: #111;overflow-x:hidden ;padding-top: 100px;transition: 0.5s;}
+            .sidenav a {
+                        padding: 10px 10px 10px 32px;
+                        text-decoration: none;
+                        font-size: 25px;
+                        color: #818181;
+                        display: block;
+                        transition:0.3s;}
+            .sidenav a:hover {color: #f1f1f1;}
+            .sidenav .closebtn {
+                        position: absolute;
+                        top: 0;
+                        right: 25px;
+                        font-size: 36px;
+                        margin-left: 50px;}
+            .test-taker-data{margin-left:auto;}
+            .center{margin-left: auto;margin-right: auto;}
+            
+            
+            @media screen and (max-height: 450px) {.sidenav {padding-top: 15px;}.sidenav a {font-size: 18px;}}    
+        </style> <!--th{padding: 25px;margin: 10px;border: solid black;}
+                    td{padding: 25px;margin: 10px;border: solid black;}
+                    #main {transition: margin-left .5s;padding: 16px;}-->
+    </head>
+    <body>
+        <div style="background-color: #818181;" >
+            <span style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()">&#9776;view</span>
+        </div>
+        <div class="sidenav" id="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><b>-</b></a>
+            <a href="#">Name</a>
+            <a href="#">Post Quiz</a>
+            <a href="#">Quizzes</a>
+            <a href="#">Logout</a>
+        </div>
+        <div class="test-taker-data" >
+            <h1 style="text-align: center;">Test attendee details</h1><br>
+            <table class="table table-striped">
+                <th>Name</th>
+                <th>Mail-ID</th>
+                <th>Quiz Index</th>
+                <th>Total score</th>
+                <th>Time taken</th>
+                <tr><td>User1</td><td>User1</td><td>User1</td><td>User1</td><td>User1</td></tr>
+            </table>
+            
+        </div>
+        <script>
+            function closeNav() {document.getElementById("sidenav").style.width = "0";}
+            function openNav() {document.getElementById("sidenav").style.width = "350px";}
+        </script>
+        <!--document.getElementById("main").style.width = "0";-->
+        <!--document.getElementById("sidenav").style.width = "350px";-->
+    </body>
+</html>
+
+<!--<iframe width="100%" height="900px" style="margin-left:350px;" src="https://www.youtube.com/embed/eGUEAvNpz48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
