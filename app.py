@@ -2,11 +2,30 @@ from http import client
 from flask import Flask, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
+import pymongo
 
 
 app = Flask(__name__)
 app.secret_key = '!secret'
 app.config.from_object('config')
+
+try:
+    mongo = pymongo.MongoClient(
+        host = "localhost",
+        port = 27017,
+        serverSelectionTimeoutMS = 1000
+    )
+    db = mongo.tallycodebrewers
+    mongo.server_info()
+except:
+    print("Error connecting to the DB")
+
+# database collection here
+admin = db.admin
+quiz = db.quiz
+user = db.user
+
+
 
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 oauth = OAuth(app)
@@ -40,6 +59,7 @@ def authorize():
     user = token.get('userinfo')
     if user:
         session['user'] = user
+    admin.insert_one({'user_data': user})
     return redirect('/')
 
 
