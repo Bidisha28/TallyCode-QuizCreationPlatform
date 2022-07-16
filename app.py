@@ -75,7 +75,6 @@ def logout():
 # admin post_quiz page
 @app.route('/post_quiz')
 def post_quiz():
-    
     pass
 
 #admin whole quiz page
@@ -85,12 +84,15 @@ def quizzes():
     current_user_email = current_user['email']
     user_data = admin.find_one({'user_email': current_user_email })
     quiz_details = []
-    
-    for each_quiz in user_data['quizzes']:
-        data = quiz.find_one({'_id':each_quiz})
-        quiz_details.append({'name': data['name'], 'date_added': 'yet' , 'valid_upto': 'to add' })
-    print(quiz_details)
-    return render_template('quiz_data.html',all_quiz=quiz_details)
+    print('quizzes' in user_data)
+    if 'quizzes' in user_data:
+        for each_quiz in user_data['quizzes']:
+            data = quiz.find_one({'_id':each_quiz})
+            quiz_details.append({'name': data['name'], 'date_added': 'yet' , 'valid_upto': 'to add' })
+        print(quiz_details)
+        return render_template('quiz_data.html',all_quiz=quiz_details)
+    else:
+        return render_template('quiz_data.html')
 
 
 
