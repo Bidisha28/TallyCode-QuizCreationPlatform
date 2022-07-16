@@ -1,5 +1,5 @@
 from http import client
-from flask import Flask, url_for, session
+from flask import Flask, request, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
 import pymongo
@@ -24,7 +24,7 @@ except:
 admin = db.admin
 quiz = db.quiz
 user = db.user
-
+questions_db = db.questions
 
 #conif here
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
@@ -73,9 +73,25 @@ def logout():
 
 
 # admin post_quiz page
-@app.route('/post_quiz')
+@app.route('/post_quiz',methods=['POST','GET'])
 def post_quiz():
-    pass
+    current_user = session.get('user')
+    current_user_email = current_user['email']
+    print(current_user_email)
+    user_data = admin.find_one({'user_email': current_user_email })
+    if request.method == 'POST':
+        questions_db.insert_one({'admin':user_data['_id']},
+         {'question':request.form.get('question') ,
+          'option1': request.form.get('option1'),
+          'option2': request.form.get('option2'),
+          'option3':request.form.get('option3') ,
+          'option4':request.form.get('option4') ,
+          'answer': request.form.get('answer')})
+        return redirect('/post_quiz')
+    else:
+        questions = questions_db.find({'admin': user_data['_id']})
+        print(questions)
+        return render_template('post_quiz.html',questions = questions)
 
 #admin whole quiz page
 @app.route('/quizzes')

@@ -45,48 +45,51 @@
               <input type="datetime" placeholder="Date added">
               <input type="datetime" placeholder="Valid upto">
               <input type="time" placeholder="duration">
-
-
-
-
             </div>
             <br>
+            {% if questions|length < 1 %}
              <div class="form-control">
                 <label>
                     Untitled question<br>
                 </label>
-     
                 <label for="recommed-1">
                     <input type="radio"
                            id="recommed-1"
                            name="recommed">Option1</input>
                 </label>
-                <form>
-                    <label for="qt">
-                        Question type
-                    </label>
-         
-                    <select id="qt" name = "dropdown">
-                       <option value = "MCQ" selected>MCQ</option>
-                       <option value = "Short Answer">Descriptive</option>
-                    </select>
-                </form>
-
-                <form>
-                    <label for="marks">
-                        Marks
-                    </label>
-         
-                    <select id="marks" name = "dropdown">
-                       <option value = "1" selected>1</option>
-                       <option value = "2">2</option>
-                       <option value = "3">3</option>
-                    </select>
-                 </form>
-
-            
             </div>
-            <button type="button" class="btn btn-primary">+Add Question</button>
+            {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Questions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for question in questions %}
+                        <tr>
+                            <td>
+                                {{ question }}
+                            </td>
+                        </tr>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            <button type="button" class="btn btn-primary">Add Question</button>
+            <form>
+                <div class="form-control">
+                    <input type="text" name="question">
+                    
+                    <label for="recommed-1">
+                        <input type="radio"
+                               id="recommed-1"
+                               name="recommed">Option1</input>
+                    </label>
+                </div>
+            </form>
         </div>
        <!-- <button style="text-align:center" type="submit" value="submit">
             Submit-->
@@ -96,3 +99,15 @@
         </script>
     </body>
 </html>
+
+
+<!-- <form>
+    <label for="marks">
+        Marks
+    </label>
+    <select id="marks" name = "dropdown">
+        <option value = "1" selected>1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+    </select>
+    </form> -->
