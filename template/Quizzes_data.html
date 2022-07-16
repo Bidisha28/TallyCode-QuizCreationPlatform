@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quizzes</title>
+        <meta name="viewport" context="width=device-width,intial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <style>
+            .sidenav {height: 100%;width: 350px;position: fixed;z-index: 1;top: 100;left: 20;background-color: #111;overflow-x:hidden ;padding-top: 100px;transition: 0.5s;}
+            .sidenav a {
+                        padding: 10px 10px 10px 32px;
+                        text-decoration: none;
+                        font-size: 25px;
+                        color: #818181;
+                        display: block;
+                        transition:0.3s;}
+            .sidenav a:hover {color: #f1f1f1;}
+            .sidenav .closebtn {
+                        position: absolute;
+                        top: 0;
+                        right: 25px;
+                        font-size: 36px;
+                        margin-left: 50px;}
+            .msg{margin-left:auto;}
+            
+            @media screen and (max-height: 450px) {.sidenav {padding-top: 15px;}.sidenav a {font-size: 18px;}}    
+        </style>    <!--.msg{margin-left: 350px;}-->
+    </head>
+    <body>
+        <!--background-color: #818181;-->
+        <div style="background: linear-gradient(to bottom right,#33cc33,#99ffff)">
+            <span style="font-size:30px;cursor:pointer;color:#111;" onclick="openNav()">&#9776;view</span>
+        </div>
+        <div class="sidenav" id="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><b>-</b></a>
+            <a href="#">Name</a>
+            <a href="#">Post Quiz</a>
+            <a href="#">Quizzes</a>
+            <a href="#">Logout</a>
+        </div>
+        <div class="test-maker-data" >
+            <h1 style="text-align: center;">Quiz Details </h1><br>
+            <table class="table table-striped">
+                <th>Quiz index</th>
+                <th>Date added</th>
+                <th>Valid upto</th>
+                <th>Action</th>
+                <tr><td>User</td><td>User</td><td>User</td><td>Edit/view</td></tr>
+            </table>
+            
+        </div>
+        <script>
+            function closeNav() {document.getElementById("sidenav").style.width = "0";}
+            function openNav() {document.getElementById("sidenav").style.width = "350px";}
+        </script>
+    </body>
+</html>
