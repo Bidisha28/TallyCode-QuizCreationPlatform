@@ -37,17 +37,37 @@
             <a href="#">Quizzes</a>
             <a href="#">Logout</a>
         </div>
+        {% if all_quiz|length < 1%}
+        <h4 style="text-align: center;">There are no Quizzes. Go to post quiz to add new Quizzes</h4>
+        {% else %}
         <div class="test-maker-data" >
             <h1 style="text-align: center;">Quiz Details </h1><br>
             <table class="table table-striped">
-                <th>Quiz index</th>
-                <th>Date added</th>
-                <th>Valid upto</th>
-                <th>Action</th>
-                <tr><td>User</td><td>User</td><td>User</td><td>Edit/view</td></tr>
+                <thead>
+                    <tr>
+                        <th>Quiz Name</th>
+                        <th>Date added</th>
+                        <th>Valid upto</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for each_quiz in all_quiz %}
+                    <tr>
+                        <td>{{ each_quiz['name'] }} </td>
+                        <td>{{ each_quiz['date_added'] }} </td>
+                        <td>{{ each_quiz['valid_upto'] }} </td>
+                        <td>
+                            <a href="#">view</a>
+                            <br>
+                            <a href="#">edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-            
         </div>
+        {% endif %}
         <script>
             function closeNav() {document.getElementById("sidenav").style.width = "0";}
             function openNav() {document.getElementById("sidenav").style.width = "350px";}

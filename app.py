@@ -44,7 +44,7 @@ oauth.register(
 def homepage():
     if 'user' in session:
         user = session.get('user')
-        return render_template('Quizpage.html')
+        return user
     return render_template('login.html')
     # return render_template('home.html', user=user)
 
@@ -63,7 +63,6 @@ def authorize():
         session['user'] = user
     if admin.find_one({'user_email': user['email']})==None:
         admin.insert_one({'user_email': user['email'], 'user_name': user['name']})
-    print(admin.find_one({'user_email': user['email']})==None)
     return redirect('/')
 
 #admin side login
@@ -82,11 +81,16 @@ def post_quiz():
 #admin whole quiz page
 @app.route('/quizzes')
 def quizzes():
+    current_user = session.get('user')
+    current_user_email = current_user['email']
+    user_data = admin.find_one({'user_email': current_user_email })
+    quiz_details = []
     
-    pass
-
-
-
+    for each_quiz in user_data['quizzes']:
+        data = quiz.find_one({'_id':each_quiz})
+        quiz_details.append({'name': data['name'], 'date_added': 'yet' , 'valid_upto': 'to add' })
+    print(quiz_details)
+    return render_template('quiz_data.html',all_quiz=quiz_details)
 
 
 
