@@ -93,6 +93,26 @@ def post_quiz():
         print(questions)
         return render_template('post_quiz.html',questions = questions)
 
+
+@app.route('/add',methods=['POST','GET'])
+def add():
+    if request.method=='POST':
+        current_user = session.get('user')
+        current_user_email = current_user['email']
+        print(current_user_email)
+        user_data = admin.find_one({'user_email': current_user_email })
+        questions_db.insert_one({'admin':user_data['_id'],
+         'question':[request.form.get('question') ,
+         request.form.get('option1'),
+         request.form.get('option2'),
+         request.form.get('option3') ,
+         request.form.get('option4') ,
+         request.form.get('answer')]})
+        return redirect('/quizzes')
+    return  render_template('add_question.html')
+
+
+
 #admin whole quiz page
 @app.route('/quizzes')
 def quizzes():
