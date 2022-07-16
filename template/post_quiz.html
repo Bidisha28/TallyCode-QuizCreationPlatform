@@ -42,7 +42,6 @@
             <h2 style="text-align: left;">Create your quiz</h2>
             <div class="topnav">
               <input type="text" placeholder="Quiz name">
-              <input type="text" placeholder="Max marks">
               <input type="datetime" placeholder="Date added">
               <input type="datetime" placeholder="Valid upto">
               <input type="time" placeholder="duration">
@@ -60,18 +59,37 @@
                 <label for="recommed-1">
                     <input type="radio"
                            id="recommed-1"
-                           name="recommed">Option1</input><br>
+                           name="recommed">Option1</input>
                 </label>
                 <form>
-                    <select name = "dropdown">
+                    <label for="qt">
+                        Question type
+                    </label>
+         
+                    <select id="qt" name = "dropdown">
                        <option value = "MCQ" selected>MCQ</option>
                        <option value = "Short Answer">Descriptive</option>
                     </select>
+                </form>
+
+                <form>
+                    <label for="marks">
+                        Marks
+                    </label>
+         
+                    <select id="marks" name = "dropdown">
+                       <option value = "1" selected>1</option>
+                       <option value = "2">2</option>
+                       <option value = "3">3</option>
+                    </select>
                  </form>
+
             
             </div>
             <button type="button" class="btn btn-primary">+Add Question</button>
         </div>
+       <!-- <button style="text-align:center" type="submit" value="submit">
+            Submit-->
         <script>
             function closeNav() {document.getElementById("sidenav").style.width = "0";}
             function openNav() {document.getElementById("sidenav").style.width = "350px";}

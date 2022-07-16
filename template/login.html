@@ -13,7 +13,8 @@
         <div class="bottom">
             <div class="container">
                 <div class="row vh-100 justify-content-center align-items-center">
-                <div class="col-8 col-md-6 col-lg-4 text-center">
+                <h1 style="text-align:center;color:black;font-size:40px;white-space:nowrap ;">Welcome to Tallyquiz <br><br><p style="text-align:center;font-size:30px;color:aliceblue">"Hey admin! Ready to post the quizzes,Go ahead!"</p></h1> 
+                <div class="col-8 col-md-6 col-lg-4 text-center"style="border:solid black;">
                     <h2 class="h2 my-4" ><b style="color:black;">Please Sign in</b></h2>
                     <form method=POST action="{{ url_for('login') }}">
                         <input type="text" class="form-control p-3 rounded-0 rounded-top" id="e" name="user_id"  placeholder="username">
@@ -27,7 +28,9 @@
                         <!--<button type="submit" class="btn btn-primary w-100">Sign In with Google</button>-->
                         <a href="{{url_for('login')}}" style="color:black;" ><img src="https://image.similarpng.com/thumbnail/2020/12/Google-Logo-isolated-premium-vector-PNG.png" height="25px" width="25px"></a>
                     </form>
+        
                 </div>
+                
                 </div>
             </div>
 
