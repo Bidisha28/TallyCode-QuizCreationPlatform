@@ -26,7 +26,7 @@ quiz = db.quiz
 user = db.user
 
 
-
+#conif here
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 oauth = OAuth(app)
 oauth.register(
@@ -76,12 +76,19 @@ def logout():
 # admin post_quiz page
 @app.route('/post_quiz')
 def post_quiz():
+    
     pass
 
 #admin whole quiz page
 @app.route('/quizzes')
 def quizzes():
+    
     pass
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
