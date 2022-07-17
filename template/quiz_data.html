@@ -59,6 +59,8 @@
                         <td>{{ each_quiz['valid_upto'] }} </td>
                         <td>
                             <a href="view_data/{{each_quiz['name']}}">view</a>
+                            <br>
+                            <a href="/{{each_quiz['name']}}/gen">share this test link</a>
                         </td>
                     </tr>
                     {% endfor %}

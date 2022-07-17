@@ -1,6 +1,7 @@
 from cgi import test
 from crypt import methods
 from datetime import datetime
+import email
 from http import client
 from operator import methodcaller
 from unicodedata import name
@@ -145,10 +146,10 @@ def view_data(quiz_name):
     current_user = session.get('user')
     qd = quiz.find_one({'quiz_name':quiz_name})
     print(qd['_id'])
-    takers = test_taker.find({'quiz_id':qd['_id']})
+    takers = test_taker.find({'quiz_id':qd['_id']}).sort('score',pymongo.DESCENDING)
     test_data = []
     for doc in takers:
-        test_data.append({'name':doc['name'],'score':doc['score'],'quiz_name': quiz_name})
+        test_data.append({'name':doc['name'],'score':doc['score'],'quiz_name': quiz_name, 'email': doc['email']})
     return render_template('test_Taker_data.html',name=current_user['name'],takers = test_data)
 
 
@@ -166,7 +167,7 @@ def take_quiz(quiz_name,name):
             total_score+=int(q[6])
             if l[-1] == str(q[1:5].index(q[5])+1):
                 score+=int(q[6])
-        test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score, 'total_score': total_score})
+        test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score, 'total_score': total_score, 'email': '-'})
         return redirect(url_for('result',quiz_name=quiz_name,name=name))
     return render_template('question.html',questions=questions,quiz_name=quiz_name,name=name)
 
@@ -187,7 +188,7 @@ def result(quiz_name,name):
         email = request.form.get('email')
         feedback = request.form.get('feedback')
         print(email,feedback)
-        
+        test_taker.update_one({'name': name},{'$set': {'email': email}})
         return redirect('https://www.google.com/')
     return render_template('afterquiz1.html',score=data['score'],total_score=data['total_score'],name=name,message=message, percentage=percentage,quiz_name=quiz_name)
 
