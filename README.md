@@ -10,4 +10,6 @@ Our method of approach:
 We maintained 2 interfaces-one for admin and another for participant.
 The uniqueness of our solution is - admin authentication,participant uniqueness, participant dashboard,score validation, certificate generation and timed quiz.
 
+Tech stack used: HTML, CSS, Bootstrap, Flask, MongoDB
+
 The details of solution:  https://drive.google.com/drive/folders/1qo17YqsaaM_QhNsjRVaWGkXlqKcnooUy?usp=sharing
