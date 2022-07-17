@@ -3,18 +3,32 @@
     <head>
         <title>Quiz</title>
         <style >
-            body{background-color: rgb(200, 166, 166);}
-            .center{margin-left: auto;margin-right: auto;
-            }
+            table.center{margin-left: auto;margin-right: auto;}
+            .top{height:100px;background:linear-gradient(to bottom right,#33cc33,#99ffff);margin:0;;border-collapse: collapse;white-space: nowrap;overflow: hidden;}
+            .topr{float:left;width:70%;}
+            .logo{ margin-left:10px;margin-right:auto;margin-top: 20px;float: left;}
+            .uname{float: left; margin-left: 15px;margin-top: 35px;} 
+            td{color: antiquewhite;}
+            body{background-color: black;}
         </style>
     </head>
     <body>
-            <div class="form-control">
+        <div class="top">
+            <div class="topr">
+                <img src="https://cdn3.vectorstock.com/i/1000x1000/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg" width="50px" height="50px" class="logo";>
+                <p id="name" class="uname">My Name</p>
+            </div>
+            <!--<div class="topl">
+                <a href="" target="iframedis"><button class="butn">START</button></a>
+            </div>-->
+        </div>
+
+            <div class="form">
                 <form action="/{{quiz_name}}/{{name}}" method="POST">
-                    <h1 style="text-align:center">{{quiz_name}}</h1><br>
+                    <h1 style="text-align:center;color: antiquewhite;">{{quiz_name}}</h1><br>
                     <table class="center">
                         {% for question in questions %}
-                        <tr>
+                        <tr><td>
                             Q . {{question[0]}}
                             <br>
                             A. {{question[1]}}
@@ -26,7 +40,7 @@
                             D . {{question[4]}}
                             <br>
                             <input type="text" name="{{question[0]}}" palceholder="answer">
-                            <br>
+                            <br></td>
                         </tr>
                        </form>
                         {% endfor %}
