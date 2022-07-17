@@ -40,6 +40,9 @@
             <a href="{{url_for('quizzes')}}">Quizzes</a>
             <a href="{{url_for('logout')}}">Logout</a>
         </div>
+        {% if takers|length < 1%}
+        <h4>No one attempted yet.</h4>
+        {% else %}
         <div class="test-taker-data" id="cont">
             <h1 style="text-align: center;">Test attendee details</h1><br>
             <table class="table table-striped">
@@ -53,15 +56,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for taker in takers %}
                     <tr>
-                        <td>User1</td>
-                        <td>User1</td>
-                        <td>User1</td>
-                        <td>User1</td>
-                        <td>User1</td>
+                        <td>{{taker['name']}}</td>
+                        <td>{{taker['quiz_name']}}</td>
+                        <td>{{taker['score']}}</td>
+                        <td></td>
+                        <td>-</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
             
         </div>
         <script>

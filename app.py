@@ -141,10 +141,13 @@ def quizzes():
 @app.route('/view_data/<quiz_name>')
 def view_data(quiz_name):
     current_user = session.get('user')
-    takers = test_taker.find({'quiz_name':quiz_name})
+    qd = quiz.find_one({'quiz_name':quiz_name})
+    print(qd['_id'])
+    takers = test_taker.find({'quiz_id':qd['_id']})
+    test_data = []
     for doc in takers:
-        print(doc)
-    return render_template('test_Taker_data.html',name=current_user['name'])
+        test_data.append({'name':doc['name'],'score':doc['score'],'quiz_name': quiz_name})
+    return render_template('test_Taker_data.html',name=current_user['name'],takers = test_data)
 
 
 #quiz taker side

@@ -123,7 +123,7 @@
                     <tbody>
                         <tr>
                             {% for question in questions %}
-                            <td>1</td>
+                            <td>{{questions.index(question)+1}}</td>
                             <td>{{question[0]}}</td>
                             <td>{{question[1]}}</td>
                             <td>{{question[2]}}</td>

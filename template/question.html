@@ -29,7 +29,7 @@
                     <table class="center">
                         {% for question in questions %}
                         <tr><td>
-                            Q . {{question[0]}}
+                            {{questions.index(question)+1}} . {{question[0]}}
                             <br>
                             A. {{question[1]}}
                             <br>
