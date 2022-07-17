@@ -9,34 +9,32 @@
         </style>
     </head>
     <body>
-        
             <div class="form-control">
-                <form>
+                <form action="">
                     <h1 style="text-align:center">Quiz ABC</h1><br>
                     <table class="center">
-                        <tr><td><label for="question">Question</label></td><td> <label for="recommed-1">
+                        {% for question in questions %}
+                       <form action="/save/{{question[0]}}/" method="POST">
+                        <tr><td><label for="question">{{question[0]}}</label></td><td> <label for="recommed-1">
                             <input type="radio"
                                    id="recommed-1"
-                                   name="recommed">option1</input></label></td><td><label for="recommed-2">
+                                   name="recommed">A. {{question[1]}}</input></label></td><td><label for="recommed-2">
                                     <input type="radio"
                                            id="recommed-2"
-                                           name="recommed">option2</input></label></td></tr><br>
+                                           name="recommed">B. {{question[2]}}</input></label></td></tr><br>
                         <tr><td></td><td><label for="recommed-3">
                             <input type="radio"
                                    id="recommed-3"
-                                   name="recommed">option3</input></label></td><td><label for="recommed-3">
+                                   name="recommed">C. {{question[3]}}</input></label></td><td><label for="recommed-3">
                                     <input type="radio"
                                            id="recommed-4"
-                                           name="recommed">option4</input></label></td></tr>
+                                           name="recommed">D. {{question[4]}}</input></label></td></tr>
+                            <tr><td><button type="Submit" class="btn btn-primary">Save Answer</button></td></tr>
+                       </form>
+                        {% endfor %}
                     <tr><td><button type="Submit" class="btn btn-primary">Submit Quiz</button></td></tr>
                     </table><br>
-                    
-                    
-                    
-                
-            
                 </form>
             </div>
-                
     </body>
 </html>

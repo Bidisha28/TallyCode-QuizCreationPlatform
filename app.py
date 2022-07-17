@@ -1,7 +1,7 @@
 from datetime import datetime
 from http import client
 from unicodedata import name
-from flask import Flask, request, url_for, session
+from flask import Flask, jsonify, request, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
 import pymongo
@@ -148,7 +148,21 @@ def view_data(quiz_name):
     return render_template('test_Taker_data.html',name=current_user['name'])
 
 
+#quiz taker side
+@app.route('/<quiz_name>',methods=['POST','GET'])
+def take_quiz(quiz_name):
+    quiz_data = quiz.find_one({'quiz_name':quiz_name})
+    questions = quiz_data['question']
+    if request.method=='POST':
+        pass
+    return render_template('question.html',questions=questions)
 
+#answer saving
+@app.route('/save/<quiz_name>/<question>',methods=['POST','GET'])
+def save():
+    answer = request.form.get('recommed')
+    print(answer)
+    return redirect('/<quiz_name>')
 
 if __name__ == '__main__':
     app.run(debug=True)
