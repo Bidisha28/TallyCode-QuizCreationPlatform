@@ -91,30 +91,14 @@
             </div>-->
     </div>
     <div class="bottom">
+        <h1 style="text-align:center;color:aliceblue">Thanks for taking the quiz!!</h1>
         <table class="center">
-            <tr>
-                <td style="color:aliceblue">Thanks for taking the quiz!!
-                    <table>
-                        <tr>
-                            <td>Score</td>
-                            <td>
-                                <div class="white-box" id="score_box">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <!-- <tr><td><iframe class="quizdis" src="" name="iframe_a"  title="Iframe Example"></iframe></td></tr> -->
-            <tr>
-                <td style="color:aliceblue">Feedback:
-                    <textarea name="address" rows="3" cols="30"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td><button value="submit" type="submit">Submit</button></td>
-            </tr>
+            <tr><td style="color:aliceblue">Score:</td><td id="score_box"> </td></tr>
+            <tr><td style="color:aliceblue">Feedback:</td><td><textarea name="address" rows="3" cols="30"></textarea> </td></tr>
+            <tr><td><button value="submit" type="submit">Submit</button></td></tr>
         </table>
     </div>
+   
     <script>
         let score_box = document.getElementById("score_box");
         if (score > 80) {
