@@ -1,3 +1,4 @@
+from datetime import datetime
 from http import client
 from unicodedata import name
 from flask import Flask, request, url_for, session
@@ -26,6 +27,7 @@ admin = db.admin
 quiz = db.quiz
 user = db.user
 questions_db = db.questions
+test_taker = db.testtakers
 
 #conif here
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
@@ -84,10 +86,10 @@ def post_quiz():
         questions=[]
         for doc in questions_obj:
             questions.append(doc['question'])
-        quiz_id = quiz.insert_one({'admin':user_data['_id'], 'question':questions}).inserted_id
+        questions_db.drop()
+        quiz_id = quiz.insert_one({'admin':user_data['_id'],'quiz_name': request.form.get('quiz_name') ,'date_added': request.form.get('date_added') , 'valid_upto': request.form.get('valid_upto'),'question':questions}).inserted_id
         if 'quizzes' in user_data:
-            admin.aggregate()
-            pass
+            admin.update_one({'_id':user_data['_id']}, {'$push': {'quizzes': quiz_id}})
         else:
             admin.find_one_and_update({'_id':user_data['_id']},{'$set': {'quizzes': [quiz_id]} })
             print(quiz_id)
@@ -113,7 +115,7 @@ def add():
          request.form.get('option2'),
          request.form.get('option3') ,
          request.form.get('option4') ,
-         request.form.get('answer')]})
+         request.form.get('answer'),request.form.get('dropdown')]})
         return redirect('/post_quiz')
     # return  render_template('add_question.html')
 
@@ -129,10 +131,22 @@ def quizzes():
     if 'quizzes' in user_data:
         for each_quiz in user_data['quizzes']:
             data = quiz.find_one({'_id':each_quiz})
-            quiz_details.append({'name': data['name'], 'date_added': 'yet' , 'valid_upto': 'to add' })
-        return render_template('quiz_data.html',all_quiz=quiz_details,name=current_user['name'] )
+            print(data)
+            quiz_details.append({'name': data['quiz_name'], 'date_added': data['date_added'] , 'valid_upto': data['valid_upto'] })
+        return render_template('quiz_data.html',all_quiz=quiz_details,name=current_user['name'])
     else:
         return render_template('quiz_data.html',name=current_user['name'])
+
+
+#test_taker data here
+@app.route('/view_data/<quiz_name>')
+def view_data(quiz_name):
+    current_user = session.get('user')
+    takers = test_taker.find({'quiz_name':quiz_name})
+    for doc in takers:
+        print(doc)
+    return render_template('test_Taker_data.html',name=current_user['name'])
+
 
 
 

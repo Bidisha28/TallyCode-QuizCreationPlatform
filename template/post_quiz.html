@@ -45,12 +45,16 @@
         <div class="content">
             <div class="container mt-3">
             <h2 style="text-align: left;">Create your quiz</h2>
-            <div class="topnav">
-              <input type="text" placeholder="Quiz name">
-              <input type="datetime" placeholder="Date added">
-              <input type="datetime" placeholder="Valid upto">
-              <input type="time" placeholder="duration">
-            </div>
+            <form action="{{url_for('post_quiz')}}" method="POST">
+                <div class="topnav">
+                    <input type="text" placeholder="Quiz name" name="quiz_name">
+                    <input type="datetime" placeholder="Date added" name="date_added">
+                    <input type="datetime" placeholder="Valid upto" name="valid_upto">
+                    <input type="time" placeholder="duration">
+                  </div>
+                <button type="Submit" class="btn btn-primary">Submit Quiz</button>
+            </form>
+           
             <br>
             <!-- WORK ON THIS PART -->
              <div class="form-control">
@@ -66,9 +70,7 @@
                             <option value = "2">2</option>
                             <option value = "3">3</option></select></td></tr>
                         <tr><td><input type="submit"></td></tr>
-                        
                     </table>
-                    
                 </form>
                 <!-- <label for="recommed-1">
                     <input type="radio"
@@ -98,9 +100,7 @@
                     </select>
                 </form> -->
             </div>
-            <form action="{{url_for('post_quiz')}}" method="POST">
-                <button type="Submit" class="btn btn-primary">Submit Quiz</button>
-            </form>
+
         </div>
         {% if questions|length <1 %}
         <h4> No questions yet</h4>

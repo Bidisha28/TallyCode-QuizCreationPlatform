@@ -58,9 +58,7 @@
                         <td>{{ each_quiz['date_added'] }} </td>
                         <td>{{ each_quiz['valid_upto'] }} </td>
                         <td>
-                            <a href="#">view</a>
-                            <br>
-                            <a href="#">edit</a>
+                            <a href="view_data/{{each_quiz['name']}}">view</a>
                         </td>
                     </tr>
                     {% endfor %}
