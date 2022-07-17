@@ -37,19 +37,30 @@
         <div class="sidenav" id="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><b>-</b></a>
             <a href="#">{{name}}</a>
-            <a href="#">Post Quiz</a>
             <a href="{{url_for('quizzes')}}">Quizzes</a>
             <a href="{{url_for('logout')}}">Logout</a>
         </div>
         <div class="test-taker-data" id="cont">
             <h1 style="text-align: center;">Test attendee details</h1><br>
             <table class="table table-striped">
-                <th>Name</th>
-                <th>Quiz Index</th>
-                <th>Total score</th>
-                <th>Time taken</th>
-                <th>Mail_ID</th>
-                <tr><td>User1</td><td>User1</td><td>User1</td><td>User1</td><td>User1</td></tr>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quiz Name</th>
+                        <th>Total score</th>
+                        <th>Time taken</th>
+                        <th>Mail_ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>User1</td>
+                        <td>User1</td>
+                        <td>User1</td>
+                        <td>User1</td>
+                        <td>User1</td>
+                    </tr>
+                </tbody>
             </table>
             
         </div>
