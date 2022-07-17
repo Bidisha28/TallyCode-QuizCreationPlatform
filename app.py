@@ -1,4 +1,5 @@
 from cgi import test
+from crypt import methods
 from datetime import datetime
 from http import client
 from operator import methodcaller
@@ -6,6 +7,7 @@ from unicodedata import name
 from flask import Flask, jsonify, request, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
+from jinja2 import FileSystemBytecodeCache
 import pymongo
 
 
@@ -162,14 +164,14 @@ def take_quiz(quiz_name,name):
         for q in (questions):
             l.append(request.form.get(q[0]))
             total_score+=int(q[6])
-            if l[-1] == q[5]:
+            if l[-1] == str(q[1:5].index(q[5])+1):
                 score+=int(q[6])
         test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score, 'total_score': total_score})
         return redirect(url_for('result',quiz_name=quiz_name,name=name))
     return render_template('question.html',questions=questions,quiz_name=quiz_name,name=name)
 
 #after quiz
-@app.route('/result/<quiz_name>/<name>')
+@app.route('/result/<quiz_name>/<name>',methods=['GET','POST'])
 def result(quiz_name,name):
     quiz_data = quiz.find_one({'quiz_name':quiz_name})
     data = test_taker.find_one({'quiz_id':quiz_data['_id'],'name':name})
@@ -181,7 +183,13 @@ def result(quiz_name,name):
         message+=f'Congrats you have qualified the exam with {percentage}%'
     else:
         message+=f'Sorry you didnt qualify'
-    return render_template('afterquiz1.html',score=data['score'],total_score=data['total_score'],name=name,message=message)
+    if request.method =='POST':
+        email = request.form.get('email')
+        feedback = request.form.get('feedback')
+        print(email,feedback)
+        
+        return redirect('https://www.google.com/')
+    return render_template('afterquiz1.html',score=data['score'],total_score=data['total_score'],name=name,message=message, percentage=percentage,quiz_name=quiz_name)
 
 
 
@@ -190,10 +198,16 @@ def gen(quiz_name):
     if request.method =='POST':
         name = request.form.get('name')
         quiz_id = quiz.find_one({'quiz_name':quiz_name})
-        # print(quiz_id)
-        tt = test_taker.find({'_id':quiz_id['_id']})
+        tt = test_taker.find({'quiz_id':quiz_id['_id']})
+        names = []
+        for id in tt:
+            names.append(id['name'])
+        if name in names:
+            message = 'Try another name. its already taken by other user'
+            return render_template('quiz_template1.html',quiz_name=quiz_name,message=message)
         return redirect(url_for('take_quiz',quiz_name=quiz_name,name=name))
-    return render_template('quiz_template1.html',quiz_name=quiz_name)
+    message=""
+    return render_template('quiz_template1.html',quiz_name=quiz_name,message=message)
 
 
 

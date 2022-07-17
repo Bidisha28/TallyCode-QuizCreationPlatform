@@ -95,8 +95,18 @@
         <table class="center">
             <tr><td style="color:aliceblue">Score:</td><td id="score_box"style="color:aliceblue">{{score}}</td></tr>
             <tr><td id="score_box"style="color:aliceblue">{{message}}</td></tr>
-            <tr><td style="color:aliceblue">Feedback:</td><td><textarea name="address" rows="3" cols="30"></textarea> </td></tr>
-            <tr><td><button value="submit" type="submit">Submit</button></td></tr>
+            {% if percentage >= 80 %}
+            <form action="/result/{{quiz_name}}/{{name}}" method="POST">
+            <tr><td></td><td><input type="email" placeholder="enter valid email" name="email"></td></tr>
+            <tr><td style="color:aliceblue">Feedback:</td><td><textarea name="feedback" rows="3" cols="30"></textarea> </td></tr>
+            <tr><td><input value="submit" type="submit">Submit</button></td></tr>
+            </form>
+            {% else %}
+            <form action="/result/{{quiz_name}}/{{name}}" method="POST">
+                <tr><td style="color:aliceblue">Feedback:</td><td><textarea name="feedback" rows="3" cols="30"></textarea> </td></tr>
+                <tr><td><input value="submit" type="submit">Submit</button></td></tr>
+            </form>
+            {% endif %}
         </table>
     </div>
 

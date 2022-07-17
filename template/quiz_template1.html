@@ -27,12 +27,13 @@
                 <img src="https://cdn3.vectorstock.com/i/1000x1000/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg" width="50px" height="50px" class="center";>
             </div>
             <div class="topl">
-            <button onclick="setTimeout(popUp, 1000);" class="butn">START</button>
+            <button onclick="setTimeout(popUp, 10);" class="butn">START</button>
             </div>
         </div>
         <div class="bottom">
             <form action="/{{quiz_name}}/gen" method="POST">
                 <table class="center">
+                    <h3 style="color:aliceblue; text-align: center;">{{message}}</h3>
                     <caption style="color:aliceblue">Enter you name</caption>
                     <tr>
                         <td><input class="ip1"type="text" id="name" name="name" placeholder="Name" onfocus="nameSpace(this)"></td>
