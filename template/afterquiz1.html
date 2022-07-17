@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>After Quiz</title>
+    <meta name="viewport" context="width=device-width,intial-scale=1.0">
+    <style>
+        .top {
+            height: 100px;
+            background: linear-gradient(to bottom right, #33cc33, #99ffff);
+            margin: 0;
+            ;
+            border-collapse: collapse;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .topr {
+            float: left;
+            width: 70%;
+        }
+
+        .topl {
+            float: right;
+            width: 30%;
+            height: 100px;
+        }
+
+        .center {
+            margin-left: 10px;
+            margin-right: auto;
+            margin-top: 20px;
+            float: left;
+        }
+
+        .butn {
+            background-color: black;
+            border: none;
+            float: right;
+            margin-top: 20px;
+            margin-right: 30px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 20px;
+        }
+
+        .quizdis {
+            height: 450px;
+            width: 600px;
+        }
+
+        table.center {
+            margin-left: 30%;
+            margin-right: 25%;
+            margin-top: 10%;
+        }
+
+        caption {
+            font-size: 25px;
+        }
+
+        .uname {
+            float: left;
+            margin-left: 15px;
+            margin-top: 35px;
+        }
+
+        .bottom {
+            width: 100%;
+            text-align: "center"
+        }
+
+        .white-box {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body style="background-color:black">
+    <div class="top">
+        <div class="topr">
+            <img src="https://cdn3.vectorstock.com/i/1000x1000/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg"
+                width="50px" height="50px" class="center" ;>
+            <p id="name" class="uname">My Name</p>
+        </div>
+        <!--<div class="topl">
+            <button class="butn" >Test Ended</button>
+            </div>-->
+    </div>
+    <div class="bottom">
+        <table class="center">
+            <tr>
+                <td style="color:aliceblue">Thanks for taking the quiz!!
+                    <table>
+                        <tr>
+                            <td>Score</td>
+                            <td>
+                                <div class="white-box" id="score_box">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- <tr><td><iframe class="quizdis" src="" name="iframe_a"  title="Iframe Example"></iframe></td></tr> -->
+            <tr>
+                <td style="color:aliceblue">Feedback:
+                    <textarea name="address" rows="3" cols="30"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><button value="submit" type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        let score_box = document.getElementById("score_box");
+        if (score > 80) {
+            score_box.innerHTML += "Congrats you've performed well in the exam."
+            score_box.innerHTML += user.score
+            email.send(user.email);
+        }
+        else if (score > 40 && score < 80) {
+            score_box.innerHTML += "Congrats you've qualified the exam."
+        }
+        else {
+            score_box.innerHTML += "Sorry you didn't qualify."
+        }
+
+    </script>
+</body>
+
+</html>
