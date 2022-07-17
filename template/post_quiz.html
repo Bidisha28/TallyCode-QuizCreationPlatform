@@ -44,13 +44,13 @@
         </div>
         <div class="content">
             <div class="container mt-3">
-            <h2 style="text-align: left;">Create your quiz</h2>
+            <h2 style="text-align: left;">Create your quiz </h2><p>(Make sure you submit the quiz after you enter all questions)</p>
             <form action="{{url_for('post_quiz')}}" method="POST">
                 <div class="topnav">
                     <input type="text" placeholder="Quiz name" name="quiz_name">
                     <input type="datetime" placeholder="Date added" name="date_added">
                     <input type="datetime" placeholder="Valid upto" name="valid_upto">
-                    <input type="time" placeholder="duration">
+                    <input type="" placeholder="duration">
                   </div>
                 <button type="Submit" class="btn btn-primary">Submit Quiz</button>
             </form>

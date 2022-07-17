@@ -84,7 +84,7 @@
         <div class="topr">
             <img src="https://cdn3.vectorstock.com/i/1000x1000/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg"
                 width="50px" height="50px" class="center" ;>
-            <p id="name" class="uname">My Name</p>
+            <p id="name" class="uname">{{name}}</p>
         </div>
         <!--<div class="topl">
             <button class="butn" >Test Ended</button>
@@ -93,27 +93,13 @@
     <div class="bottom">
         <h1 style="text-align:center;color:aliceblue">Thanks for taking the quiz!!</h1>
         <table class="center">
-            <tr><td style="color:aliceblue">Score:</td><td id="score_box"> </td></tr>
+            <tr><td style="color:aliceblue">Score:</td><td id="score_box"style="color:aliceblue">{{score}}</td></tr>
+            <tr><td id="score_box"style="color:aliceblue">{{message}}</td></tr>
             <tr><td style="color:aliceblue">Feedback:</td><td><textarea name="address" rows="3" cols="30"></textarea> </td></tr>
             <tr><td><button value="submit" type="submit">Submit</button></td></tr>
         </table>
     </div>
-   
-    <script>
-        let score_box = document.getElementById("score_box");
-        if (score > 80) {
-            score_box.innerHTML += "Congrats you've performed well in the exam."
-            score_box.innerHTML += user.score
-            email.send(user.email);
-        }
-        else if (score > 40 && score < 80) {
-            score_box.innerHTML += "Congrats you've qualified the exam."
-        }
-        else {
-            score_box.innerHTML += "Sorry you didn't qualify."
-        }
 
-    </script>
 </body>
 
 </html>

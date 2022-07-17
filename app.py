@@ -157,14 +157,33 @@ def take_quiz(quiz_name,name):
     questions = quiz_data['question']
     if request.method=='POST':
         l=[]
+        total_score = 0
         score = 0
         for q in (questions):
             l.append(request.form.get(q[0]))
+            total_score+=int(q[6])
             if l[-1] == q[5]:
                 score+=int(q[6])
-        test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score})
-        return redirect('/')
+        test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score, 'total_score': total_score})
+        return redirect(url_for('result',quiz_name=quiz_name,name=name))
     return render_template('question.html',questions=questions,quiz_name=quiz_name,name=name)
+
+#after quiz
+@app.route('/result/<quiz_name>/<name>')
+def result(quiz_name,name):
+    quiz_data = quiz.find_one({'quiz_name':quiz_name})
+    data = test_taker.find_one({'quiz_id':quiz_data['_id'],'name':name})
+    message = ''
+    percentage = (data['score']/data['total_score'])*100
+    if percentage >= 80:
+        message+=f'Congrats you have performed well in the exam scoring {percentage}%'
+    elif percentage>=40 and percentage<=80:
+        message+=f'Congrats you have qualified the exam with {percentage}%'
+    else:
+        message+=f'Sorry you didnt qualify'
+    return render_template('afterquiz1.html',score=data['score'],total_score=data['total_score'],name=name,message=message)
+
+
 
 @app.route('/<quiz_name>/gen',methods=['GET','POST'])
 def gen(quiz_name):
