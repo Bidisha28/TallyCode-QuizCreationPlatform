@@ -92,14 +92,12 @@ def post_quiz():
             admin.update_one({'_id':user_data['_id']}, {'$push': {'quizzes': quiz_id}})
         else:
             admin.find_one_and_update({'_id':user_data['_id']},{'$set': {'quizzes': [quiz_id]} })
-            print(quiz_id)
         return redirect('/')
     else:
         questions_obj = questions_db.find({'admin': user_data['_id']})
         questions=[]
         for doc in questions_obj:
             questions.append(doc['question'])
-        print(questions)
         return render_template('post_quiz.html',questions = questions, name=current_user['name'])
 
 
@@ -131,7 +129,6 @@ def quizzes():
     if 'quizzes' in user_data:
         for each_quiz in user_data['quizzes']:
             data = quiz.find_one({'_id':each_quiz})
-            print(data)
             quiz_details.append({'name': data['quiz_name'], 'date_added': data['date_added'] , 'valid_upto': data['valid_upto'] })
         return render_template('quiz_data.html',all_quiz=quiz_details,name=current_user['name'])
     else:
@@ -149,20 +146,29 @@ def view_data(quiz_name):
 
 
 #quiz taker side
-@app.route('/<quiz_name>',methods=['POST','GET'])
-def take_quiz(quiz_name):
+@app.route('/<quiz_name>/<name>',methods=['POST','GET'])
+def take_quiz(quiz_name,name):
     quiz_data = quiz.find_one({'quiz_name':quiz_name})
     questions = quiz_data['question']
     if request.method=='POST':
-        pass
-    return render_template('question.html',questions=questions)
+        l=[]
+        score = 0
+        for q in (questions):
+            l.append(request.form.get(q[0]))
+            if l[-1] == q[5]:
+                score+=int(q[6])
+        test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score})
+        return redirect('/')
+    return render_template('question.html',questions=questions,quiz_name=quiz_name,name=name)
+
 
 #answer saving
-@app.route('/save/<quiz_name>/<question>',methods=['POST','GET'])
-def save():
-    answer = request.form.get('recommed')
-    print(answer)
-    return redirect('/<quiz_name>')
+# @app.route('/save',methods=['POST','GET'])
+# def save():
+
+#     answer = request.form.get('recommed')
+#     print(answer)
+#     return redirect('/<quiz_name>')
 
 if __name__ == '__main__':
     app.run(debug=True)
