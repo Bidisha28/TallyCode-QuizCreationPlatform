@@ -10,4 +10,4 @@ Our method of approach:
 We maintained 2 interfaces-one for admin and another for participant.
 The uniqueness of our solution is - admin authentication,participant uniqueness, participant dashboard,score validation, certificate generation and timed quiz.
 
-Certificate generated after performing extremely well:  https://drive.google.com/drive/folders/1qo17YqsaaM_QhNsjRVaWGkXlqKcnooUy?usp=sharing
+The details of solution:  https://drive.google.com/drive/folders/1qo17YqsaaM_QhNsjRVaWGkXlqKcnooUy?usp=sharing
