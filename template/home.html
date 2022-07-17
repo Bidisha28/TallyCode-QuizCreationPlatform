@@ -32,10 +32,10 @@
         </div>
         <div class="sidenav" id="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><b>-</b></a>
-            <a href="#">Name</a>
+            <a href="#">{{name}}</a>
             <a href="#">Post Quiz</a>
-            <a href="#">Quizzes</a>
-            <a href="#">Logout</a>
+            <a href="{{url_for('quizzes')}}">Quizzes</a>
+            <a href="{{url_for('logout')}}">Logout</a>
         </div>
         <div class="msg">
             <br>

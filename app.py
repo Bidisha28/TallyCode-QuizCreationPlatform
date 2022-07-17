@@ -1,4 +1,5 @@
 from http import client
+from unicodedata import name
 from flask import Flask, request, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
@@ -44,7 +45,7 @@ oauth.register(
 def homepage():
     if 'user' in session:
         user = session.get('user')
-        return user
+        return render_template('home.html', name=user['name'])
     return render_template('login.html')
     # return render_template('home.html', user=user)
 
@@ -77,21 +78,27 @@ def logout():
 def post_quiz():
     current_user = session.get('user')
     current_user_email = current_user['email']
-    print(current_user_email)
     user_data = admin.find_one({'user_email': current_user_email })
     if request.method == 'POST':
-        questions_db.insert_one({'admin':user_data['_id']},
-         {'question':request.form.get('question') ,
-          'option1': request.form.get('option1'),
-          'option2': request.form.get('option2'),
-          'option3':request.form.get('option3') ,
-          'option4':request.form.get('option4') ,
-          'answer': request.form.get('answer')})
-        return redirect('/post_quiz')
+        questions_obj = questions_db.find({'admin': user_data['_id']})
+        questions=[]
+        for doc in questions_obj:
+            questions.append(doc['question'])
+        quiz_id = quiz.insert_one({'admin':user_data['_id'], 'question':questions}).inserted_id
+        if 'quizzes' in user_data:
+            admin.aggregate()
+            pass
+        else:
+            admin.find_one_and_update({'_id':user_data['_id']},{'$set': {'quizzes': [quiz_id]} })
+            print(quiz_id)
+        return redirect('/')
     else:
-        questions = questions_db.find({'admin': user_data['_id']})
+        questions_obj = questions_db.find({'admin': user_data['_id']})
+        questions=[]
+        for doc in questions_obj:
+            questions.append(doc['question'])
         print(questions)
-        return render_template('post_quiz.html',questions = questions)
+        return render_template('post_quiz.html',questions = questions, name=current_user['name'])
 
 
 @app.route('/add',methods=['POST','GET'])
@@ -99,7 +106,6 @@ def add():
     if request.method=='POST':
         current_user = session.get('user')
         current_user_email = current_user['email']
-        print(current_user_email)
         user_data = admin.find_one({'user_email': current_user_email })
         questions_db.insert_one({'admin':user_data['_id'],
          'question':[request.form.get('question') ,
@@ -108,8 +114,8 @@ def add():
          request.form.get('option3') ,
          request.form.get('option4') ,
          request.form.get('answer')]})
-        return redirect('/quizzes')
-    return  render_template('add_question.html')
+        return redirect('/post_quiz')
+    # return  render_template('add_question.html')
 
 
 
@@ -120,15 +126,13 @@ def quizzes():
     current_user_email = current_user['email']
     user_data = admin.find_one({'user_email': current_user_email })
     quiz_details = []
-    print('quizzes' in user_data)
     if 'quizzes' in user_data:
         for each_quiz in user_data['quizzes']:
             data = quiz.find_one({'_id':each_quiz})
             quiz_details.append({'name': data['name'], 'date_added': 'yet' , 'valid_upto': 'to add' })
-        print(quiz_details)
-        return render_template('quiz_data.html',all_quiz=quiz_details)
+        return render_template('quiz_data.html',all_quiz=quiz_details,name=current_user['name'] )
     else:
-        return render_template('quiz_data.html')
+        return render_template('quiz_data.html',name=current_user['name'])
 
 
 
