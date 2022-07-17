@@ -1,5 +1,7 @@
+from cgi import test
 from datetime import datetime
 from http import client
+from operator import methodcaller
 from unicodedata import name
 from flask import Flask, jsonify, request, url_for, session
 from flask import render_template, redirect
@@ -161,14 +163,17 @@ def take_quiz(quiz_name,name):
         return redirect('/')
     return render_template('question.html',questions=questions,quiz_name=quiz_name,name=name)
 
+@app.route('/<quiz_name>/gen',methods=['GET','POST'])
+def gen(quiz_name):
+    if request.method =='POST':
+        name = request.form.get('name')
+        quiz_id = quiz.find_one({'quiz_name':quiz_name})
+        # print(quiz_id)
+        tt = test_taker.find({'_id':quiz_id['_id']})
+        return redirect(url_for('take_quiz',quiz_name=quiz_name,name=name))
+    return render_template('quiz_template1.html',quiz_name=quiz_name)
 
-#answer saving
-# @app.route('/save',methods=['POST','GET'])
-# def save():
 
-#     answer = request.form.get('recommed')
-#     print(answer)
-#     return redirect('/<quiz_name>')
 
 if __name__ == '__main__':
     app.run(debug=True)

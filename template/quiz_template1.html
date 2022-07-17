@@ -31,11 +31,11 @@
             </div>
         </div>
         <div class="bottom">
-            <form>
+            <form action="/{{quiz_name}}/gen" method="POST">
                 <table class="center">
                     <caption style="color:aliceblue">Enter you name</caption>
                     <tr>
-                        <td><input class="ip1"type="text" id="name" placeholder="Name" onfocus="nameSpace(this)"></td>
+                        <td><input class="ip1"type="text" id="name" name="name" placeholder="Name" onfocus="nameSpace(this)"></td>
                     </tr>
                     <tr>
                         <td><button type="submit" value="Submit">Submit</button></td>
