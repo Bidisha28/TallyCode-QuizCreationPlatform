@@ -1,6 +1,6 @@
 from cgi import test
 from crypt import methods
-from datetime import datetime
+from datetime import date, datetime
 import email
 from http import client
 from operator import methodcaller
@@ -199,6 +199,8 @@ def gen(quiz_name):
     if request.method =='POST':
         name = request.form.get('name')
         quiz_id = quiz.find_one({'quiz_name':quiz_name})
+        start = quiz_id['date_added']
+        end = quiz_id['valid_upto']
         tt = test_taker.find({'quiz_id':quiz_id['_id']})
         names = []
         for id in tt:
@@ -208,6 +210,12 @@ def gen(quiz_name):
             return render_template('quiz_template1.html',quiz_name=quiz_name,message=message)
         return redirect(url_for('take_quiz',quiz_name=quiz_name,name=name))
     message=""
+    # quiz_id = quiz.find_one({'quiz_name':quiz_name})
+    # start = quiz_id['date_added']
+    
+    # print(start)
+    # end = quiz_id['valid_upto']
+    # print(datetime.now())
     return render_template('quiz_template1.html',quiz_name=quiz_name,message=message)
 
 
