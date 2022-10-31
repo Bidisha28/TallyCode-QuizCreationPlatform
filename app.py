@@ -1,14 +1,11 @@
 from cgi import test
 from crypt import methods
 from datetime import date, datetime
-import email
-from http import client
-from operator import methodcaller
 from unicodedata import name
-from flask import Flask, jsonify, request, url_for, session
+import bcrypt
+from flask import Flask, flash, jsonify, request, url_for, session
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
-from jinja2 import FileSystemBytecodeCache
 import pymongo
 
 
@@ -56,13 +53,40 @@ def homepage():
     return render_template('login.html')
     # return render_template('home.html', user=user)
 
-#admin side login
-@app.route('/login')
+
+#admin side register
+@app.route('/register',methods=['POST','GET'])
+def register():
+    if request.method=='POST':
+        if admin.find_one({'user_email': request.form.get('email')})==None:
+            if admin.find_one({'user_name': request.form.get('name')})==None:
+                if request.form.get('pass')==request.form.get('pass2'):
+                    hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'),bcrypt.gensalt())
+                    admin.insert_one({'user_email': request.form.get('email'), 'user_name': request.form.get('name'), 'pwd': hashpass })
+                    session['user'] = {'email':request.form.get('email'), 'name':request.form.get('name') }
+                    return redirect('/')
+    return render_template('Register.html')
+
+
+#admin normal login page
+@app.route('/login', methods=['POST','GET'])
 def login():
+    if request.method=='POST':
+        login_user = admin.find_one({'user_name': request.form['name']})
+        if login_user:
+            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['pwd']) == login_user['pwd']:
+                session['user'] = {'email':login_user['user_email'], 'name':request.form.get('name') }
+                return redirect('/')
+    return redirect('/')
+
+
+#admin side google login
+@app.route('/google_login' )
+def google_login():
     redirect_uri = url_for('authorize', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
-#admin side login
+#admin side login through google accounts
 @app.route('/authorize')
 def authorize():
     token = oauth.google.authorize_access_token()
@@ -165,7 +189,7 @@ def take_quiz(quiz_name,name):
         for q in (questions):
             l.append(request.form.get(q[0]))
             total_score+=int(q[6])
-            if l[-1] == str(q[1:5].index(q[5])+1):
+            if l[-1] == q[5]:
                 score+=int(q[6])
         test_taker.insert_one({'quiz_id': quiz_data['_id'],'name': name, 'answers': l, 'score':score, 'total_score': total_score, 'email': '-'})
         return redirect(url_for('result',quiz_name=quiz_name,name=name))
@@ -212,7 +236,6 @@ def gen(quiz_name):
     message=""
     # quiz_id = quiz.find_one({'quiz_name':quiz_name})
     # start = quiz_id['date_added']
-    
     # print(start)
     # end = quiz_id['valid_upto']
     # print(datetime.now())
