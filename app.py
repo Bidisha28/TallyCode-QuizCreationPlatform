@@ -116,7 +116,8 @@ def post_quiz():
         for doc in questions_obj:
             questions.append(doc['question'])
         questions_db.drop()
-        quiz_id = quiz.insert_one({'admin':user_data['_id'],'quiz_name': request.form.get('quiz_name') ,'date_added': request.form.get('date_added') , 'valid_upto': request.form.get('valid_upto'),'question':questions}).inserted_id
+        # quiz_id = quiz.insert_one({'admin':user_data['_id'],'quiz_name': request.form.get('quiz_name') ,'date_added': request.form.get('date_added') , 'valid_upto': request.form.get('valid_upto'),'question':questions}).inserted_id
+        quiz_id = quiz.insert_one({'admin':user_data['_id'],'quiz_name': request.form.get('quiz_name') }).inserted_id
         if 'quizzes' in user_data:
             admin.update_one({'_id':user_data['_id']}, {'$push': {'quizzes': quiz_id}})
         else:
@@ -158,7 +159,8 @@ def quizzes():
     if 'quizzes' in user_data:
         for each_quiz in user_data['quizzes']:
             data = quiz.find_one({'_id':each_quiz})
-            quiz_details.append({'name': data['quiz_name'], 'date_added': data['date_added'] , 'valid_upto': data['valid_upto'] })
+            # quiz_details.append({'name': data['quiz_name'], 'date_added': data['date_added'] , 'valid_upto': data['valid_upto'] })
+            quiz_details.append({'name': data['quiz_name']})
         return render_template('quiz_data.html',all_quiz=quiz_details,name=current_user['name'])
     else:
         return render_template('quiz_data.html',name=current_user['name'])

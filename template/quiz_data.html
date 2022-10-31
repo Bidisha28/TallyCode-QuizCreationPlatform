@@ -46,8 +46,8 @@
                 <thead>
                     <tr>
                         <th>Quiz Name</th>
-                        <th>Date added</th>
-                        <th>Valid upto</th>
+                        <!-- <th>Date added</th>
+                        <th>Valid upto</th> -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -55,8 +55,8 @@
                     {% for each_quiz in all_quiz %}
                     <tr>
                         <td>{{ each_quiz['name'] }} </td>
-                        <td>{{ each_quiz['date_added'] }} </td>
-                        <td>{{ each_quiz['valid_upto'] }} </td>
+                        <!-- <td>{{ each_quiz['date_added'] }} </td>
+                        <td>{{ each_quiz['valid_upto'] }} </td> -->
                         <td>
                             <a href="view_data/{{each_quiz['name']}}">view</a>
                             <br>
